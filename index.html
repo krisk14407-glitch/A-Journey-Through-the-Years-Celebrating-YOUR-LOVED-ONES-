@@ -457,21 +457,21 @@
         <h2>🎵 Birthday Playlist 🎵</h2>
         <p style="margin: 20px 0; color: #666;">Click any song to play!</p>
         <div class="song-list">
-          <div class="song-item" onclick="playSong('Happy Birthday', 'happy birthday song')">
+          <div class="song-item" onclick="playSong('Happy Birthday', 'https://www.youtube.com/results?search_query=happy+birthday+song', 'https://open.spotify.com/search/happy%20birthday%20song')">
             <span style="font-size: 2em;">🎂</span>
-            <div><strong>Happy Birthday</strong><br>Traditional</div>
+            <div><strong>Happy Birthday</strong><br>Traditional<br><small style="color: #fff;">Click to play on YouTube or Spotify</small></div>
           </div>
-          <div class="song-item" onclick="playSong('Celebration', 'celebration kool and the gang')">
+          <div class="song-item" onclick="playSong('Celebration', 'https://www.youtube.com/results?search_query=celebration+kool+and+the+gang', 'https://open.spotify.com/search/celebration%20kool%20and%20the%20gang')">
             <span style="font-size: 2em;">🎉</span>
-            <div><strong>Celebration</strong><br>Kool & The Gang</div>
+            <div><strong>Celebration</strong><br>Kool & The Gang<br><small style="color: #fff;">Click to play on YouTube or Spotify</small></div>
           </div>
-          <div class="song-item" onclick="playSong('Birthday', 'birthday katy perry')">
+          <div class="song-item" onclick="playSong('Birthday', 'https://www.youtube.com/results?search_query=birthday+katy+perry', 'https://open.spotify.com/search/birthday%20katy%20perry')">
             <span style="font-size: 2em;">🎊</span>
-            <div><strong>Birthday</strong><br>Katy Perry</div>
+            <div><strong>Birthday</strong><br>Katy Perry<br><small style="color: #fff;">Click to play on YouTube or Spotify</small></div>
           </div>
-          <div class="song-item" onclick="playSong('Happy', 'happy pharrell williams')">
+          <div class="song-item" onclick="playSong('Happy', 'https://www.youtube.com/results?search_query=happy+pharrell+williams', 'https://open.spotify.com/search/happy%20pharrell%20williams')">
             <span style="font-size: 2em;">🎈</span>
-            <div><strong>Happy</strong><br>Pharrell Williams</div>
+            <div><strong>Happy</strong><br>Pharrell Williams<br><small style="color: #fff;">Click to play on YouTube or Spotify</small></div>
           </div>
         </div>
         <button class="btn" onclick="nextPage()">Final Message ✨</button>
@@ -689,8 +689,13 @@
       }
     }
 
-    function playSong(title, searchTerm) {
-      alert(`🎵 Playing: ${title}\n\nIn a real implementation, this would play the song!`);
+    function playSong(title, youtubeUrl, spotifyUrl) {
+      const choice = confirm(`🎵 Play "${title}"\n\nClick OK for YouTube or Cancel for Spotify`);
+      if (choice) {
+        window.open(youtubeUrl, '_blank');
+      } else {
+        window.open(spotifyUrl, '_blank');
+      }
     }
 
     // Create balloons
