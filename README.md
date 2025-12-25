@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?q=80&w=1200&auto=format&fit=crop" width="100%" style="border-radius: 15px;" alt="Birthday Celebration Banner">
+<img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?q=80&w=1200&auto=format&fit=crop" width="80%" style="border-radius: 8px;" alt="Birthday Celebration Banner">
 
 <br />
 <a href="https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/">
