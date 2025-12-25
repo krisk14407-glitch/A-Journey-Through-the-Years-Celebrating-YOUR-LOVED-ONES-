@@ -8,12 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     * {
-      .social-links a i {margin-right: 8px; /* Puts space between icon and text */}
-      .fa-instagram { color: #E1306C; }
-      .fa-github { color: #333; }
-      .fa-whatsapp { color: #25D366; }
-      .fa-facebook { color: #1877F2; }
-      
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -26,6 +20,13 @@
       overflow-x: hidden;
       position: relative;
     }
+
+    /* Social Icon Colors */
+    .social-links a i { margin-right: 8px; }
+    .fa-instagram { color: #E1306C; }
+    .fa-github { color: #333; }
+    .fa-whatsapp { color: #25D366; }
+    .fa-facebook { color: #1877F2; }
 
     .container {
       max-width: 800px;
@@ -239,7 +240,8 @@
       transform: scale(1.5);
     }
 
-    .balloon {
+    /* Traditional Floating Balloons (Background Only) */
+    .static-balloon {
       position: fixed;
       width: 30px;
       height: 40px;
@@ -319,6 +321,7 @@
     .social-links {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
       justify-content: center;
       margin: 20px 0;
     }
@@ -331,6 +334,8 @@
       border: 2px solid #667eea;
       border-radius: 50px;
       transition: all 0.3s;
+      display: flex;
+      align-items: center;
     }
 
     .social-links a:hover {
@@ -350,7 +355,6 @@
 <body>
   <div id="balloons"></div>
   <div class="container">
-    <!-- Page 0: Form -->
     <div id="page0" class="page active">
       <div class="card">
         <h1>🎉 Let's Celebrate YOU! 🎉</h1>
@@ -380,26 +384,25 @@
           <div id="photoPreview">
             <img id="previewImg" alt="Preview">
           </div>
-          <div style="margin-bottom: 20px;">
-            <a href="https://api.whatsapp.com/send?text=Check out my birthday site! https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" 
-              target="_blank" 
-              style="display: inline-block; text-decoration: none; padding: 10px 20px; border: 2px solid #25D366; color: #25D366; border-radius: 50px; font-weight: bold;">
-              🟢 WhatsApp
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" 
-              target="_blank" 
-              style="display: inline-block; text-decoration: none; padding: 10px 20px; border: 2px solid #1877F2; color: #1877F2; border-radius: 50px; font-weight: bold; margin-left: 10px;">
-              🔵 Facebook
-            </a>
-          </div>
-        
+        </div>
 
+        <div style="margin-bottom: 20px;">
+          <a href="https://api.whatsapp.com/send?text=Check out my birthday site! https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" 
+             target="_blank" 
+             style="display: inline-block; text-decoration: none; padding: 10px 20px; border: 2px solid #25D366; color: #25D366; border-radius: 50px; font-weight: bold;">
+             🟢 WhatsApp
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" 
+             target="_blank" 
+             style="display: inline-block; text-decoration: none; padding: 10px 20px; border: 2px solid #1877F2; color: #1877F2; border-radius: 50px; font-weight: bold; margin-left: 10px;">
+             🔵 Facebook
+          </a>
+        </div>
         
         <button class="btn" id="startBtn">Start the Celebration! 🎊</button>
       </div>
     </div>
 
-    <!-- Page 1: Welcome -->
     <div id="page1" class="page">
       <div class="card">
         <h1>🎂</h1>
@@ -409,7 +412,6 @@
       </div>
     </div>
 
-    <!-- Page 2: Countdown -->
     <div id="page2" class="page">
       <div class="card">
         <h2>The Moment We've Been Waiting For...</h2>
@@ -418,7 +420,6 @@
       </div>
     </div>
 
-    <!-- Page 3: Happy Birthday -->
     <div id="page3" class="page">
       <div class="card">
         <h1>🎊 HAPPY BIRTHDAY <span id="birthdayName"></span>! 🎊</h1>
@@ -429,7 +430,6 @@
       </div>
     </div>
 
-    <!-- Page 4: Hobby -->
     <div id="page4" class="page">
       <div class="card">
         <h2>What Makes You Special</h2>
@@ -440,7 +440,6 @@
       </div>
     </div>
 
-    <!-- Page 5: Reasons You're Awesome -->
     <div id="page5" class="page">
       <div class="card">
         <h2>Reasons You're Awesome</h2>
@@ -450,7 +449,6 @@
       </div>
     </div>
 
-    <!-- Page 6: Wishes -->
     <div id="page6" class="page">
       <div class="card">
         <h2>Birthday Wishes for <span id="wishesName"></span></h2>
@@ -465,7 +463,6 @@
       </div>
     </div>
 
-    <!-- Page 7: Photo Wall -->
     <div id="page7" class="page">
       <div class="card">
         <h2>📸 Memory Wall 📸</h2>
@@ -478,7 +475,6 @@
       </div>
     </div>
 
-    <!-- Page 8: Music -->
     <div id="page8" class="page">
       <div class="card">
         <h2>🎵 Birthday Playlist 🎵</h2>
@@ -505,330 +501,12 @@
       </div>
     </div>
 
-    <!-- Page 9: Final -->
     <div id="page9" class="page">
       <div class="card">
         <h1><span id="finalName"></span>, You Deserve the World! 🌍</h1>
         <p style="font-size: 1.3em; margin: 30px 0; color: #667eea; line-height: 1.6;">Thank you for being such an incredible person. Have the most AMAZING birthday ever! 🎉🎂🎈</p>
         <div class="social-links">
-          <a href="https://www.instagram.com/madax_krish.na/" target="_blank">📸 Creator Instagram</a>
-          <a href="https://github.com/krisk14407-glitch" target="_blank">💻 Creator GitHub</a>
-          <a href="https://api.whatsapp.com/send?text=Check out my birthday site! https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" target="_blank">🟢 WhatsApp</a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" target="_blank">🔵 Facebook</a>
-        </div>
-        <button class="btn" onclick="goToPage(1)">Celebrate Again! 🔄</button>
-        <button class="btn" onclick="resetAllData()" style="background: #ff6b6b;">Reset Info 🔄</button>
-      </div>
-    </div>
-
-    <!-- Navigation Dots -->
-    <div class="nav-dots" id="navDots" style="display: none;">
-      <div class="dot" onclick="goToPage(1)"></div>
-      <div class="dot" onclick="goToPage(2)"></div>
-      <div class="dot" onclick="goToPage(3)"></div>
-      <div class="dot" onclick="goToPage(4)"></div>
-      <div class="dot" onclick="goToPage(5)"></div>
-      <div class="dot" onclick="goToPage(6)"></div>
-      <div class="dot" onclick="goToPage(7)"></div>
-      <div class="dot" onclick="goToPage(8)"></div>
-      <div class="dot" onclick="goToPage(9)"></div>
-    </div>
-  </div>
-
-  <script>
-    let currentPage = 0;
-    let userData = {};
-
-    const awesomeCards = [
-      {emoji: '🌟', text: 'Your smile lights up every room'},
-      {emoji: '💪', text: 'Your strength inspires everyone'},
-      {emoji: '❤️', text: 'Your kindness knows no bounds'},
-      {emoji: '🎨', text: 'Your creativity is unmatched'},
-      {emoji: '😂', text: 'Your humor brightens our days'},
-      {emoji: '🌈', text: 'You make life more colorful'},
-      {emoji: '🎪', text: 'You are the main attraction'},
-      {emoji: '🌙', text: 'You are timelessly beautiful'},
-      {emoji: '🔮', text: 'Your wisdom guides many'},
-      {emoji: '💫', text: 'You are pure magic'},
-      {emoji: '🎵', text: 'You create perfect harmony'},
-      {emoji: '🚀', text: 'You soar above expectations'}
-    ];
-
-    let cardIndices = [0, 1, 2, 3, 4, 5];
-
-    // Initialize on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      loadSavedData();
-      createBalloonsAndConfetti();
-      loadPhotoWall();
-      
-      // Add event listener to start button
-      document.getElementById('startBtn').addEventListener('click', saveBirthdayInfo);
-    });
-
-    function loadSavedData() {
-      try {
-        const savedData = sessionStorage.getItem('birthdayData');
-        if (savedData) {
-          userData = JSON.parse(savedData);
-          populateUserData();
-          goToPage(1);
-          document.getElementById('navDots').style.display = 'flex';
-        }
-      } catch (e) {
-        console.log('No saved data found');
-      }
-    }
-
-    document.getElementById('userPhoto').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          document.getElementById('previewImg').src = e.target.result;
-          document.getElementById('photoPreview').style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    function saveBirthdayInfo() {
-      const name = document.getElementById('userName').value.trim();
-      const age = document.getElementById('userAge').value;
-      const hobby = document.getElementById('userHobby').value.trim();
-      const photoFile = document.getElementById('userPhoto').files[0];
-
-      if (!name || !age || !hobby) {
-        alert('Please fill in all required fields!');
-        return;
-      }
-
-      userData = {name, age, hobby};
-
-      if (photoFile) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          userData.photo = e.target.result;
-          sessionStorage.setItem('birthdayData', JSON.stringify(userData));
-          populateUserData();
-          goToPage(1);
-          document.getElementById('navDots').style.display = 'flex';
-        };
-        reader.readAsDataURL(photoFile);
-      } else {
-        sessionStorage.setItem('birthdayData', JSON.stringify(userData));
-        populateUserData();
-        goToPage(1);
-        document.getElementById('navDots').style.display = 'flex';
-      }
-    }
-
-    function populateUserData() {
-      document.getElementById('welcomeName').textContent = `${userData.name}, It's Your Special Day!`;
-      document.getElementById('birthdayName').textContent = userData.name;
-      document.getElementById('celebrateAge').textContent = userData.age;
-      document.getElementById('hobbyDisplay').innerHTML = `🌟 ${userData.hobby} 🌟`;
-      document.getElementById('wishesName').textContent = userData.name;
-      document.getElementById('finalName').textContent = userData.name;
-
-      const photoContainer = document.getElementById('userPhotoLarge');
-      photoContainer.innerHTML = userData.photo ? 
-        `<img src="${userData.photo}" alt="${userData.name}">` : 
-        '<div style="background: linear-gradient(135deg, #667eea, #764ba2); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 80px;">🎂</div>';
-    }
-
-    function nextPage() {
-      if (currentPage < 9) goToPage(currentPage + 1);
-    }
-
-    function goToPage(n) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-      
-      document.getElementById('page' + n).classList.add('active');
-      if (n > 0) document.querySelectorAll('.dot')[n - 1].classList.add('active');
-      
-      currentPage = n;
-      
-      if (n === 2) startCountdown();
-      if (n === 3) createFireworks();
-      if (n === 5) createAwesomeCards();
-    }
-
-    function resetAllData() {
-      if (confirm('Are you sure you want to reset all information?')) {
-        sessionStorage.clear();
-        userData = {};
-        
-        document.getElementById('userName').value = '';
-        document.getElementById('userAge').value = '';
-        document.getElementById('userHobby').value = '';
-        document.getElementById('userPhoto').value = '';
-        document.getElementById('photoPreview').style.display = 'none';
-        document.getElementById('photoWall').innerHTML = '';
-        
-        currentPage = 0;
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page0').classList.add('active');
-        document.getElementById('navDots').style.display = 'none';
-      }
-    }
-
-    function startCountdown() {
-      let count = 3;
-      const el = document.getElementById('countdown');
-      const int = setInterval(() => {
-        count--;
-        if (count > 0) {
-          el.textContent = count;
-        } else if (count === 0) {
-          el.textContent = '🎉';
-          setTimeout(() => nextPage(), 500);
-          clearInterval(int);
-        }
-      }, 1000);
-    }
-
-    function createAwesomeCards() {
-      const grid = document.getElementById('awesomeGrid');
-      grid.innerHTML = '';
-      
-      for (let i = 0; i < 6; i++) {
-        const card = document.createElement('div');
-        card.className = 'awesome-card';
-        card.innerHTML = `
-          <div class="card-content">
-            <div class="emoji">${awesomeCards[i].emoji}</div>
-            <div>${awesomeCards[i].text}</div>
-          </div>
-        `;
-        card.onclick = () => flipCard(card, i);
-        grid.appendChild(card);
-      }
-    }
-
-    function flipCard(cardElement, index) {
-      cardElement.classList.add('flipping');
-      
-      setTimeout(() => {
-        cardIndices[index] = (cardIndices[index] + 1) % awesomeCards.length;
-        const newCard = awesomeCards[cardIndices[index]];
-        
-        cardElement.querySelector('.card-content').innerHTML = `
-          <div class="emoji">${newCard.emoji}</div>
-          <div>${newCard.text}</div>
-        `;
-        
-        cardElement.classList.remove('flipping');
-      }, 300);
-    }
-
-    function createBalloonsAndConfetti() {
-      const container = document.getElementById('balloons');
-      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#fd79a8'];
-
-      for (let i = 0; i < 15; i++) {
-        const balloon = document.createElement('div');
-        balloon.className = 'balloon';
-        balloon.style.left = Math.random() * 100 + '%';
-        balloon.style.top = Math.random() * 100 + '%';
-        balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-        balloon.style.animationDelay = Math.random() * 3 + 's';
-        container.appendChild(balloon);
-      }
-
-      for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDelay = Math.random() * 4 + 's';
-        document.body.appendChild(confetti);
-      }
-    }
-
-    function createFireworks() {
-      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#fd79a8'];
-      for (let i = 0; i < 20; i++) {
-        setTimeout(() => {
-          const firework = document.createElement('div');
-          firework.style.position = 'fixed';
-          firework.style.left = Math.random() * 100 + '%';
-          firework.style.top = Math.random() * 100 + '%';
-          firework.style.width = '10px';
-          firework.style.height = '10px';
-          firework.style.borderRadius = '50%';
-          firework.style.background = colors[Math.floor(Math.random() * colors.length)];
-          firework.style.animation = 'pulse 0.5s ease-out';
-          document.body.appendChild(firework);
-          setTimeout(() => firework.remove(), 500);
-        }, i * 100);
-      }
-    }
-
-    document.getElementById('wallPhoto').addEventListener('change', function(e) {
-      const files = e.target.files;
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          addPhotoToWall(event.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    function addPhotoToWall(photoData) {
-      const photoWall = document.getElementById('photoWall');
-      const photoItem = document.createElement('div');
-      photoItem.className = 'photo-item';
-      photoItem.innerHTML = `
-        <img src="${photoData}" alt="Memory">
-        <button onclick="this.parentElement.remove(); savePhotoWall();">×</button>
-      `;
-      photoWall.appendChild(photoItem);
-      savePhotoWall();
-    }
-
-    function savePhotoWall() {
-      const photos = [];
-      document.querySelectorAll('#photoWall img').forEach(img => {
-        photos.push(img.src);
-      });
-      sessionStorage.setItem('photoWallData', JSON.stringify(photos));
-    }
-
-    function loadPhotoWall() {
-      try {
-        const saved = sessionStorage.getItem('photoWallData');
-        if (saved) {
-          const photos = JSON.parse(saved);
-          photos.forEach(photo => addPhotoToWall(photo));
-        }
-      } catch (e) {
-        console.log('No photo wall data found');
-      }
-    }
-
-    function clearPhotoWall() {
-      if (confirm('Clear all photos from the wall?')) {
-        document.getElementById('photoWall').innerHTML = '';
-        sessionStorage.removeItem('photoWallData');
-      }
-    }
-
-    function playSong(title, searchQuery) {
-      const useSpotify = confirm(`Play "${title}"?\n\nClick OK for Spotify\nClick Cancel for YouTube`);
-      
-      if (useSpotify) {
-        const spotifyWeb = `https://open.spotify.com/search/${encodeURIComponent(searchQuery)}`;
-        window.open(spotifyWeb, '_blank');
-      } else {
-        const youtubeSearch = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
-        window.open(youtubeSearch, '_blank');
-      }
-    }
-
-  </script>
-</body>
-</html>
+          <a href="https://www.instagram.com/madax_krish.na/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="https://github.com/krisk14407-glitch" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://api.whatsapp.com/send?text=Check out my birthday site! https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="https://www
