@@ -21,7 +21,6 @@
       position: relative;
     }
 
-    /* Social Icon Colors */
     .social-links a i { margin-right: 8px; }
     .fa-instagram { color: #E1306C; }
     .fa-github { color: #333; }
@@ -219,28 +218,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    .nav-dots {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .dot.active {
-      background: white;
-      transform: scale(1.5);
-    }
-
-    /* Traditional Floating Balloons (Background Only) */
     .static-balloon {
       position: fixed;
       width: 30px;
@@ -509,4 +486,312 @@
           <a href="https://www.instagram.com/madax_krish.na/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
           <a href="https://github.com/krisk14407-glitch" target="_blank"><i class="fab fa-github"></i> GitHub</a>
           <a href="https://api.whatsapp.com/send?text=Check out my birthday site! https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-          <a href="https://www
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        </div>
+        <button class="btn" onclick="location.reload()">Start Over 🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    let userData = {};
+    let photoWallImages = [];
+
+    // Photo preview
+    document.getElementById('userPhoto').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('previewImg').src = event.target.result;
+          document.getElementById('photoPreview').style.display = 'block';
+          userData.photoUrl = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Start button
+    document.getElementById('startBtn').addEventListener('click', function() {
+      const name = document.getElementById('userName').value.trim();
+      const age = document.getElementById('userAge').value.trim();
+      const hobby = document.getElementById('userHobby').value.trim();
+
+      if (!name || !age || !hobby) {
+        alert('Please fill in all required fields!');
+        return;
+      }
+
+      userData.name = name;
+      userData.age = age;
+      userData.hobby = hobby;
+
+      document.getElementById('welcomeName').textContent = `Welcome, ${name}!`;
+      nextPage();
+    });
+
+    function nextPage() {
+      document.getElementById('page' + currentPage).classList.remove('active');
+      currentPage++;
+      document.getElementById('page' + currentPage).classList.add('active');
+
+      if (currentPage === 2) {
+        startCountdown();
+      } else if (currentPage === 3) {
+        document.getElementById('birthdayName').textContent = userData.name;
+        document.getElementById('celebrateAge').textContent = userData.age;
+        if (userData.photoUrl) {
+          document.getElementById('userPhotoLarge').innerHTML = `<img src="${userData.photoUrl}" alt="Your photo">`;
+        } else {
+          document.getElementById('userPhotoLarge').innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 80px;">🎉</div>';
+        }
+      } else if (currentPage === 4) {
+        document.getElementById('hobbyDisplay').textContent = getHobbyEmoji(userData.hobby) + ' ' + userData.hobby;
+      } else if (currentPage === 5) {
+        createAwesomeCards();
+      } else if (currentPage === 6) {
+        document.getElementById('wishesName').textContent = userData.name;
+      } else if (currentPage === 9) {
+        document.getElementById('finalName').textContent = userData.name;
+      }
+    }
+
+    function startCountdown() {
+      let count = 3;
+      const countdownEl = document.getElementById('countdown');
+      const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownEl.textContent = count;
+        } else {
+          countdownEl.textContent = '🎉';
+          clearInterval(interval);
+          setTimeout(nextPage, 1000);
+        }
+      }, 1000);
+    }
+
+    function getHobbyEmoji(hobby) {
+      const h = hobby.toLowerCase();
+      if (h.includes('read')) return '📚';
+      if (h.includes('music') || h.includes('sing')) return '🎵';
+      if (h.includes('draw') || h.includes('paint') || h.includes('art')) return '🎨';
+      if (h.includes('sport') || h.includes('run') || h.includes('gym')) return '⚽';
+      if (h.includes('cook') || h.includes('bake')) return '👨‍🍳';
+      if (h.includes('game') || h.includes('gaming')) return '🎮';
+      if (h.includes('travel')) return '✈️';
+      if (h.includes('photo')) return '📷';
+      return '⭐';
+    }
+
+    function createAwesomeCards() {
+      const allReasons = [
+        { emoji: '😊', title: 'Your Smile', text: 'It lights up every room!' },
+        { emoji: '💪', title: 'Your Strength', text: 'You overcome every challenge!' },
+        { emoji: '🌟', title: 'Your Uniqueness', text: 'There\'s nobody quite like you!' },
+        { emoji: '❤️', title: 'Your Kindness', text: 'You make the world better!' },
+        { emoji: '🎯', title: 'Your Determination', text: 'You never give up!' },
+        { emoji: '🌈', title: 'Your Positivity', text: 'You spread joy everywhere!' },
+        { emoji: '🎨', title: 'Your Creativity', text: 'You bring beauty to the world!' },
+        { emoji: '🔥', title: 'Your Passion', text: 'You inspire everyone around you!' },
+        { emoji: '🌺', title: 'Your Grace', text: 'You handle everything with elegance!' },
+        { emoji: '🎪', title: 'Your Fun Spirit', text: 'You make life an adventure!' },
+        { emoji: '🏆', title: 'Your Excellence', text: 'You always give your best!' },
+        { emoji: '🌸', title: 'Your Gentleness', text: 'You treat everyone with care!' },
+        { emoji: '⚡', title: 'Your Energy', text: 'You never run out of enthusiasm!' },
+        { emoji: '🎭', title: 'Your Authenticity', text: 'You\'re always true to yourself!' },
+        { emoji: '🌻', title: 'Your Optimism', text: 'You always see the bright side!' },
+        { emoji: '🎸', title: 'Your Rhythm', text: 'You dance through life beautifully!' },
+        { emoji: '🦋', title: 'Your Transformation', text: 'You keep growing and evolving!' },
+        { emoji: '🌙', title: 'Your Mystery', text: 'You\'re full of wonderful surprises!' },
+        { emoji: '☀️', title: 'Your Warmth', text: 'You make everyone feel welcome!' },
+        { emoji: '🎁', title: 'Your Generosity', text: 'You love to give and share!' },
+        { emoji: '🔮', title: 'Your Wisdom', text: 'You always know what to say!' },
+        { emoji: '🎪', title: 'Your Joy', text: 'You find happiness everywhere!' },
+        { emoji: '🌊', title: 'Your Calm', text: 'You bring peace to chaos!' },
+        { emoji: '🦄', title: 'Your Magic', text: 'You make dreams come true!' },
+        { emoji: '🎯', title: 'Your Focus', text: 'You achieve what you set out to do!' },
+        { emoji: '🌹', title: 'Your Love', text: 'You care deeply about others!' },
+        { emoji: '🎨', title: 'Your Vision', text: 'You see possibilities everywhere!' },
+        { emoji: '🌟', title: 'Your Brilliance', text: 'You shine so bright!' },
+        { emoji: '💎', title: 'Your Value', text: 'You\'re truly precious!' },
+        { emoji: '🎵', title: 'Your Harmony', text: 'You bring people together!' },
+        { emoji: '🌈', title: 'Your Hope', text: 'You believe in better days!' },
+        { emoji: '🎉', title: 'Your Spirit', text: 'You celebrate life fully!' },
+        { emoji: '🌠', title: 'Your Dreams', text: 'You dare to dream big!' },
+        { emoji: '🦋', title: 'Your Freedom', text: 'You live life on your terms!' },
+        { emoji: '🔥', title: 'Your Drive', text: 'You never settle for less!' },
+        { emoji: '💫', title: 'Your Sparkle', text: 'You add magic to everything!' },
+        { emoji: '🌺', title: 'Your Beauty', text: 'Inside and out, you\'re stunning!' },
+        { emoji: '🎪', title: 'Your Humor', text: 'You make everyone laugh!' },
+        { emoji: '🌸', title: 'Your Sweetness', text: 'You\'re a ray of sunshine!' },
+        { emoji: '🏅', title: 'Your Courage', text: 'You face fears head-on!' },
+        { emoji: '🎭', title: 'Your Expression', text: 'You communicate so well!' },
+        { emoji: '🌻', title: 'Your Growth', text: 'You\'re always improving!' },
+        { emoji: '⭐', title: 'Your Impact', text: 'You make a real difference!' },
+        { emoji: '🎨', title: 'Your Style', text: 'You have amazing taste!' },
+        { emoji: '🌙', title: 'Your Dreams', text: 'You inspire others to dream!' },
+        { emoji: '🔮', title: 'Your Intuition', text: 'You trust your instincts!' },
+        { emoji: '🎵', title: 'Your Voice', text: 'You speak with meaning!' },
+        { emoji: '🌊', title: 'Your Flow', text: 'You adapt to anything!' },
+        { emoji: '🦄', title: 'Your Rarity', text: 'You\'re one of a kind!' },
+        { emoji: '💖', title: 'Your Heart', text: 'It\'s full of love!' },
+        { emoji: '🎁', title: 'Your Presence', text: 'You\'re a gift to the world!' },
+        { emoji: '🌟', title: 'Your Light', text: 'You brighten dark days!' },
+        { emoji: '🎪', title: 'Your Fun', text: 'You know how to have a good time!' },
+        { emoji: '🌺', title: 'Your Peace', text: 'You radiate tranquility!' },
+        { emoji: '🔥', title: 'Your Intensity', text: 'You live life fully!' },
+        { emoji: '🌈', title: 'Your Color', text: 'You add vibrancy to life!' },
+        { emoji: '🎯', title: 'Your Precision', text: 'You pay attention to detail!' },
+        { emoji: '💫', title: 'Your Wonder', text: 'You see beauty in everything!' },
+        { emoji: '🌸', title: 'Your Softness', text: 'You show compassion always!' },
+        { emoji: '🏆', title: 'Your Success', text: 'You achieve amazing things!' },
+        { emoji: '🎭', title: 'Your Depth', text: 'You\'re wonderfully complex!' },
+        { emoji: '🌻', title: 'Your Sunshine', text: 'You warm everyone\'s hearts!' },
+        { emoji: '⚡', title: 'Your Power', text: 'You\'re stronger than you know!' },
+        { emoji: '🌙', title: 'Your Serenity', text: 'You find calm in storms!' },
+        { emoji: '🔮', title: 'Your Insight', text: 'You understand deeply!' },
+        { emoji: '🎵', title: 'Your Melody', text: 'Your life is a beautiful song!' },
+        { emoji: '🌊', title: 'Your Depth', text: 'You have layers of awesomeness!' },
+        { emoji: '🦋', title: 'Your Change', text: 'You embrace transformation!' },
+        { emoji: '💎', title: 'Your Worth', text: 'You\'re invaluable!' },
+        { emoji: '🎉', title: 'Your Celebration', text: 'You make every moment special!' },
+        { emoji: '🌠', title: 'Your Wishes', text: 'You help others\' dreams come true!' },
+        { emoji: '🦄', title: 'Your Imagination', text: 'You think outside the box!' },
+        { emoji: '🔥', title: 'Your Spark', text: 'You ignite inspiration!' },
+        { emoji: '💫', title: 'Your Glow', text: 'You radiate positive energy!' },
+        { emoji: '🌺', title: 'Your Blossoming', text: 'You\'re always becoming more!' },
+        { emoji: '🎪', title: 'Your Entertainment', text: 'You\'re never boring!' },
+        { emoji: '🌸', title: 'Your Delicacy', text: 'You handle things with care!' },
+        { emoji: '🏅', title: 'Your Achievement', text: 'You reach your goals!' },
+        { emoji: '🎭', title: 'Your Range', text: 'You can do anything!' },
+        { emoji: '🌻', title: 'Your Brightness', text: 'You never dim your light!' },
+        { emoji: '⭐', title: 'Your Shine', text: 'You stand out beautifully!' },
+        { emoji: '🎨', title: 'Your Artistry', text: 'You create beauty!' },
+        { emoji: '🌙', title: 'Your Reflection', text: 'You think deeply!' },
+        { emoji: '🔮', title: 'Your Mystery', text: 'You\'re endlessly interesting!' },
+        { emoji: '🎵', title: 'Your Beat', text: 'You march to your own drum!' },
+        { emoji: '🌊', title: 'Your Motion', text: 'You keep moving forward!' },
+        { emoji: '🦄', title: 'Your Uniqueness', text: 'There will never be another you!' },
+        { emoji: '💖', title: 'Your Compassion', text: 'You feel deeply for others!' },
+        { emoji: '🎁', title: 'Your Surprise', text: 'You\'re full of delightful moments!' },
+        { emoji: '🌟', title: 'Your Radiance', text: 'You glow from within!' },
+        { emoji: '🎪', title: 'Your Playfulness', text: 'You keep life fun!' },
+        { emoji: '🌺', title: 'Your Bloom', text: 'You\'re in full flower!' },
+        { emoji: '🔥', title: 'Your Heat', text: 'You bring the energy!' },
+        { emoji: '🌈', title: 'Your Promise', text: 'You give people hope!' },
+        { emoji: '🎯', title: 'Your Aim', text: 'You know what you want!' },
+        { emoji: '💫', title: 'Your Twinkle', text: 'You catch everyone\'s eye!' },
+        { emoji: '🌸', title: 'Your Tenderness', text: 'You\'re gentle and kind!' },
+        { emoji: '🏆', title: 'Your Victory', text: 'You win at life!' }
+      ];
+
+      const grid = document.getElementById('awesomeGrid');
+      grid.innerHTML = '';
+      
+      // Show 6 random cards initially
+      const displayedReasons = [];
+      for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * allReasons.length);
+        displayedReasons.push(allReasons[randomIndex]);
+      }
+
+      displayedReasons.forEach((reason, index) => {
+        const card = document.createElement('div');
+        card.className = 'awesome-card';
+        card.dataset.index = index;
+        card.innerHTML = `
+          <div class="emoji">${reason.emoji}</div>
+          <h3>${reason.title}</h3>
+          <p>${reason.text}</p>
+        `;
+        card.addEventListener('click', function() {
+          this.classList.add('flipping');
+          setTimeout(() => {
+            // Get a new random reason
+            const newReason = allReasons[Math.floor(Math.random() * allReasons.length)];
+            this.innerHTML = `
+              <div class="emoji">${newReason.emoji}</div>
+              <h3>${newReason.title}</h3>
+              <p>${newReason.text}</p>
+            `;
+            this.classList.remove('flipping');
+          }, 300);
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // Photo wall
+    document.getElementById('wallPhoto').addEventListener('change', function(e) {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          photoWallImages.push(event.target.result);
+          updatePhotoWall();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    function updatePhotoWall() {
+      const wall = document.getElementById('photoWall');
+      wall.innerHTML = '';
+      photoWallImages.forEach((imgSrc, index) => {
+        const item = document.createElement('div');
+        item.className = 'photo-item';
+        item.innerHTML = `
+          <img src="${imgSrc}" alt="Memory ${index + 1}">
+          <button onclick="removePhoto(${index})">×</button>
+        `;
+        wall.appendChild(item);
+      });
+    }
+
+    function removePhoto(index) {
+      photoWallImages.splice(index, 1);
+      updatePhotoWall();
+    }
+
+    function clearPhotoWall() {
+      if (confirm('Are you sure you want to clear all photos?')) {
+        photoWallImages = [];
+        updatePhotoWall();
+      }
+    }
+
+    function playSong(title, searchTerm) {
+      alert(`🎵 Playing: ${title}\n\nIn a real implementation, this would play the song!`);
+    }
+
+    // Create balloons
+    function createBalloons() {
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57', '#ff9ff3'];
+      const balloonsContainer = document.getElementById('balloons');
+      
+      for (let i = 0; i < 15; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = 'static-balloon';
+        balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        balloon.style.left = Math.random() * 100 + '%';
+        balloon.style.top = Math.random() * 100 + '%';
+        balloon.style.animationDelay = Math.random() * 5 + 's';
+        balloonsContainer.appendChild(balloon);
+      }
+
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDelay = Math.random() * 4 + 's';
+        balloonsContainer.appendChild(confetti);
+      }
+    }
+
+    createBalloons();
+  </script>
+</body>
+</html>
