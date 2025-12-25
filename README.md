@@ -1,6 +1,6 @@
 <div align="center">
 
-![Birthday Banner](https://capsule-render.vercel.app/render?type=soft&color=auto&height=200&section=header&text=A%20Journey%20Through%20The%20Years&fontSize=50&animation=fadeIn)
+<img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?q=80&w=1200&auto=format&fit=crop" width="100%" style="border-radius: 15px;" alt="Birthday Celebration Banner">
 
 <br />
 <a href="https://krisk14407-glitch.github.io/A-Journey-Through-the-Years-Celebrating-YOUR-LOVED-ONES-/">
