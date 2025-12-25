@@ -345,38 +345,6 @@
       .card { padding: 20px; }
       .countdown { font-size: 80px; }
     }
-    /* Floating Balloon Style */
-    .balloon {
-      position: fixed;
-      width: 50px;
-      height: 70px;
-      background-color: rgba(255, 105, 180, 0.7);
-      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-      cursor: pointer;
-      z-index: 9999;
-    }
-    .balloon:after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 24px;
-      width: 2px;
-      height: 20px;
-      background: rgba(255,255,255,0.4);
-    }
-    .sparkle {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: gold;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-      animation: pop-sparkle 0.5s ease-out forwards;
-    }
-    @keyframes pop-sparkle {
-      to { transform: translate(var(--dx), var(--dy)); opacity: 0; }
-    }
   </style>
 </head>
 <body>
@@ -860,46 +828,7 @@
         window.open(youtubeSearch, '_blank');
       }
     }
-    function createBalloon() {
-    const b = document.createElement('div');
-    b.className = 'balloon';
-    const colors = ['#FF69B4', '#87CEEB', '#98FB98', '#FFD700', '#FF4500'];
-    b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    b.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-    b.style.top = window.innerHeight + 'px';
-    document.body.appendChild(b);
 
-    let pos = window.innerHeight;
-    const speed = 1 + Math.random() * 2;
-    const interval = setInterval(() => {
-        if (pos < -100) {
-            clearInterval(interval);
-            b.remove();
-            createBalloon(); // Replace if floats away
-        } else {
-            pos -= speed;
-            b.style.top = pos + 'px';
-        }
-    }, 20);
-
-    b.addEventListener('mousedown', () => {
-        for(let i=0; i<10; i++) {
-            const s = document.createElement('div');
-            s.className = 'sparkle';
-            s.style.left = b.style.left;
-            s.style.top = b.style.top;
-            s.style.setProperty('--dx', (Math.random() - 0.5) * 150 + 'px');
-            s.style.setProperty('--dy', (Math.random() - 0.5) * 150 + 'px');
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 500);
-        }
-        b.remove();
-        clearInterval(interval);
-        setTimeout(createBalloon, 800); // Replace immediately after pop
-    });
-}
-// Start with 6 balloons
-for(let i=0; i<6; i++) setTimeout(createBalloon, i * 1000);
   </script>
 </body>
 </html>
