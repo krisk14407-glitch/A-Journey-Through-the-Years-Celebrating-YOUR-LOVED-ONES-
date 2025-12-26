@@ -80,7 +80,7 @@
       font-weight: bold;
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 12px;
       border: 2px solid #ddd;
@@ -88,9 +88,14 @@
       font-size: 16px;
     }
 
-    input:focus {
+    input:focus, select:focus {
       outline: none;
       border-color: #667eea;
+    }
+
+    select {
+      cursor: pointer;
+      background: white;
     }
 
     .photo-upload {
@@ -321,6 +326,13 @@
       transform: translateY(-3px);
     }
 
+    .error-message {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 1.8em; }
       h2 { font-size: 1.5em; }
@@ -343,13 +355,16 @@
         </div>
         
         <div class="form-group">
-          <label>Your Age *</label>
-          <input type="number" id="userAge" placeholder="Enter your age">
+          <label>Your Age * (1-500)</label>
+          <input type="number" id="userAge" placeholder="Enter your age" min="1" max="500">
+          <div class="error-message" id="ageError">Please enter a valid age between 1 and 500</div>
         </div>
         
         <div class="form-group">
           <label>Your Favorite Hobby *</label>
-          <input type="text" id="userHobby" placeholder="What do you love to do?">
+          <select id="userHobby">
+            <option value="">Select your hobby...</option>
+          </select>
         </div>
         
         <div class="form-group">
@@ -498,6 +513,64 @@
     let userData = {};
     let photoWallImages = [];
 
+    // List of 200 hobbies
+    const hobbies = [
+      "Reading", "Writing", "Painting", "Drawing", "Sketching", "Photography", "Videography", 
+      "Cooking", "Baking", "Gardening", "Hiking", "Camping", "Fishing", "Hunting", "Bird Watching",
+      "Running", "Jogging", "Swimming", "Cycling", "Mountain Biking", "Yoga", "Pilates", "Meditation",
+      "Dancing", "Singing", "Playing Guitar", "Playing Piano", "Playing Drums", "Playing Violin",
+      "Playing Flute", "DJing", "Music Production", "Songwriting", "Rapping", "Beatboxing",
+      "Gaming", "Video Gaming", "Board Games", "Card Games", "Chess", "Poker", "Puzzles",
+      "Knitting", "Crocheting", "Sewing", "Quilting", "Embroidery", "Cross-stitch", "Needlepoint",
+      "Woodworking", "Carpentry", "Furniture Making", "Sculpting", "Pottery", "Ceramics", "Glassblowing",
+      "Jewelry Making", "Beading", "Metalworking", "Blacksmithing", "Welding", "3D Printing",
+      "Model Building", "RC Cars", "Drones", "Airplane Modeling", "Train Modeling", "Collecting Coins",
+      "Collecting Stamps", "Collecting Comics", "Collecting Cards", "Collecting Antiques", "Collecting Vinyl",
+      "Traveling", "Road Trips", "Backpacking", "Solo Travel", "Adventure Travel", "Scuba Diving",
+      "Snorkeling", "Surfing", "Paddleboarding", "Kayaking", "Canoeing", "Rafting", "Sailing",
+      "Rock Climbing", "Bouldering", "Mountaineering", "Skiing", "Snowboarding", "Ice Skating",
+      "Skateboarding", "Rollerblading", "Parkour", "Martial Arts", "Boxing", "Kickboxing", "Judo",
+      "Karate", "Taekwondo", "Wrestling", "Archery", "Shooting", "Bowling", "Golf", "Tennis",
+      "Badminton", "Table Tennis", "Volleyball", "Basketball", "Football", "Soccer", "Baseball",
+      "Cricket", "Rugby", "Hockey", "Lacrosse", "Softball", "Ultimate Frisbee", "Disc Golf",
+      "Watching Movies", "Watching TV Shows", "Watching Anime", "Watching Documentaries", "Theater",
+      "Stand-up Comedy", "Improv", "Magic Tricks", "Juggling", "Acting", "Voice Acting", "Podcasting",
+      "Blogging", "Vlogging", "Content Creation", "Social Media", "Streaming", "Coding", "Programming",
+      "Web Development", "App Development", "Game Development", "Graphic Design", "UI/UX Design",
+      "Animation", "Video Editing", "Photo Editing", "Digital Art", "Calligraphy", "Lettering",
+      "Origami", "Paper Crafts", "Scrapbooking", "Journaling", "Bullet Journaling", "Creative Writing",
+      "Poetry", "Short Stories", "Novel Writing", "Screenwriting", "Astrology", "Astronomy",
+      "Stargazing", "Learning Languages", "Volunteering", "Charity Work", "Mentoring", "Tutoring",
+      "Pet Training", "Horse Riding", "Dog Walking", "Pet Grooming", "Aquarium Keeping", "Beekeeping",
+      "Wine Tasting", "Coffee Tasting", "Tea Brewing", "Mixology", "Food Photography", "Restaurant Reviews",
+      "Genealogy", "History Research", "Science Experiments", "Philosophy", "Debate", "Public Speaking",
+      "Investing", "Stock Trading", "Cryptocurrency", "Real Estate", "Entrepreneurship", "Networking",
+      "Fashion Design", "Interior Design", "Home Decor", "Feng Shui", "Minimalism", "Thrift Shopping"
+    ];
+
+    // Populate hobby dropdown
+    const hobbySelect = document.getElementById('userHobby');
+    hobbies.forEach(hobby => {
+      const option = document.createElement('option');
+      option.value = hobby;
+      option.textContent = hobby;
+      hobbySelect.appendChild(option);
+    });
+
+    // Age validation
+    document.getElementById('userAge').addEventListener('input', function(e) {
+      const age = parseInt(e.target.value);
+      const errorMsg = document.getElementById('ageError');
+      
+      if (age < 1 || age > 500 || isNaN(age)) {
+        errorMsg.style.display = 'block';
+        e.target.style.borderColor = '#ff6b6b';
+      } else {
+        errorMsg.style.display = 'none';
+        e.target.style.borderColor = '#ddd';
+      }
+    });
+
     // Photo preview
     document.getElementById('userPhoto').addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -515,11 +588,21 @@
     // Start button
     document.getElementById('startBtn').addEventListener('click', function() {
       const name = document.getElementById('userName').value.trim();
-      const age = document.getElementById('userAge').value.trim();
-      const hobby = document.getElementById('userHobby').value.trim();
+      const age = parseInt(document.getElementById('userAge').value.trim());
+      const hobby = document.getElementById('userHobby').value;
 
-      if (!name || !age || !hobby) {
-        alert('Please fill in all required fields!');
+      if (!name) {
+        alert('Please enter your name!');
+        return;
+      }
+
+      if (!age || age < 1 || age > 500) {
+        alert('Please enter a valid age between 1 and 500!');
+        return;
+      }
+
+      if (!hobby) {
+        alert('Please select a hobby from the list!');
         return;
       }
 
