@@ -610,10 +610,8 @@
       userData.age = age;
       userData.hobby = hobby;
 
-      // Update welcome page with user's name
       document.getElementById('welcomeName').textContent = `Welcome, ${name}!`;
       
-      // Navigate to next page
       document.getElementById('page0').classList.remove('active');
       currentPage = 1;
       document.getElementById('page1').classList.add('active');
